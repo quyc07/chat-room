@@ -6,18 +6,15 @@ on:
   pull_request:
     branches: [ "master" ]
 
+tag: $(date +%s)
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag quyc07/chat-room:$(date +%s)
-      # Push the Docker image to Docker Hub
+        run: docker build . --file Dockerfile --tag quyc07/chat-room:${{tag}}
       - name: Push the Docker image
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          docker push quyc07/chat-room:$(date +%s)
+          docker push quyc07/chat-room:${{tag}}
