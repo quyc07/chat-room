@@ -8,10 +8,10 @@ WORKDIR /app
 COPY . /app
 
 # Build the Rust application
-RUN cargo build --release
+RUN cargo build
 
 # Expose port 8000 for the application
 EXPOSE 3000
 
 # Set the startup command to run the application
-CMD ["./target/release/chat-room"]
+CMD ["./target/debug/chat-room"]
